@@ -23,7 +23,7 @@ def generate_adversarial_data(original_images,
     Raises:
     """
     num_original_images = original_images.shape[0]
-    adv_images = np.empty((0, original_images.shape[1], original_images.shape[2]),
+    adv_images = np.empty((0, iter(original_images[1:])),
                           dtype=int)
 
     l0_norms = np.empty(0, dtype=float)
