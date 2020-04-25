@@ -21,15 +21,17 @@ def plot_sample_images(model, images, expected_labels, class_names):
                                     class_names[expected_labels[i]]),
                    color=color)
 
-
 def plot_n_images(images: list):
     plt.figure(figsize=(15, 5))
     N = len(images)
 
     for i in range(N):
         plt.subplot(2, 5, i + 1)
+       # print(images[i].shape)
         nX, nY, _ = iter(images[i].shape)
-        plt.imshow(images[i].reshape(shape=(nX,nY)), cmap='gray')
+        x = images[i].reshape((nX,nY))
+       # print(x.shape)
+        plt.imshow(x, cmap='gray')
         label = 'original'
         if i & 1 == 0:
             color = 'blue'
