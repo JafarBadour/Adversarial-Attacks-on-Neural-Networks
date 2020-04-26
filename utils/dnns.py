@@ -2,8 +2,8 @@ import tensorflow as tf
 from tensorflow import keras
 
 from keras.layers import Input, Dense, Conv2D, MaxPool2D, Flatten, Deconvolution2D, UpSampling2D, Dropout
-from keras.models import Model
-from keras.models import load_model
+from keras.models import Model, load_model
+
 
 
 class DNN:
