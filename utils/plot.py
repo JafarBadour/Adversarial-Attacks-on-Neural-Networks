@@ -10,7 +10,8 @@ def plot_sample_images(model, images, expected_labels, class_names):
         plt.grid(False)
         plt.xticks([])
         plt.yticks([])
-        plt.imshow(images[i], cmap=plt.cm.binary)
+        shape = (images[i].shape[0], images[i].shape[1])
+        plt.imshow(images[i].reshape(shape), cmap=plt.cm.binary)
         predicted_label = np.argmax(predictions[i])
         if predicted_label == expected_labels[i]:
             color = 'blue'
@@ -53,4 +54,30 @@ def plot_history(history):
     plt.ylabel('MSE')
     plt.xlabel('No. epoch')
     plt.legend(loc="upper left")
+    plt.show()
+
+
+def plot_confidence(x_train_adv_images, model, train_images):
+    bcons = []
+    acons = []
+    print(x_train_adv_images.shape)
+    Num = len(x_train_adv_images)
+    for id in range(Num):
+        benign = train_images[id]
+        adversarial = x_train_adv_images[id]
+        probas = np.array([benign, adversarial])
+        y_prob = model.predict(probas)
+        benign_conf = max(y_prob[0])
+        adversarial_conf = max(y_prob[1])
+        bcons.append(benign_conf)
+        acons.append(adversarial_conf)
+    # plt.imshow(benign.reshape((28,28)),cmap='gray')
+    # plt.show()
+    plt.rcParams["figure.figsize"] = (30, 15)
+    plt.plot([i for i in range(Num)], bcons, '--r')
+    plt.plot([i for i in range(Num)], acons, '--b')
+    plt.title('Confidence of benign vs adversarial samples', fontsize=37)
+    plt.ylabel('Confidence %', fontsize=37)
+    plt.xlabel('id of picture', fontsize=37)
+
     plt.show()
